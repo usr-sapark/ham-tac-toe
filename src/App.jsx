@@ -1,26 +1,22 @@
 import { useState } from "react";
-
+// components
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
-
-// 다음 플레이어를 지정하는 함수
-const derivePlayer = (prevPlayer) => {
-  return prevPlayer === "X" ? "O" : "X";
-};
+// utils
+import { deriveWinner } from "./utils/game_logic";
+import { derivePlayer } from "./utils/game_logic";
 
 function App() {
   // gameLog & GamdBoard
   const [gameTurns, setGameTurns] = useState([]);
-
   const curPlayer = derivePlayer(gameTurns[0]?.player);
 
-  const handleSelectBox = (rowIdx, colIdx) => {
-    //이전에 누른 기록이 있는 인덱스에 다시 클릭 시도 -> alert
-    // gameTurns에 누른 기록이 있는 인덱스에 다시 클릭 시도 -> alert
-    // gameTurns.square.row가 rowIdx와 동일하고, gameTurns.square.col이 colIdx와 동일한 기록이 있으면 alert로 띄운다.
-    // gameTurns의 클릭 기록을 업데이트해서도 안 된다.
+  // 승자 결정 함수
+  const winner = deriveWinner(gameTurns);
 
+  // 박스 클릭 함수
+  const handleSelectBox = (rowIdx, colIdx) => {
     for (let i = 0; i < gameTurns.length; i++) {
       const turn = gameTurns[i];
       if (turn.square.row == rowIdx && turn.square.col == colIdx) {
@@ -29,7 +25,6 @@ function App() {
         return;
       }
     }
-
     setGameTurns((prevTurns) => {
       const updatedTurns = [
         {
@@ -42,9 +37,23 @@ function App() {
     });
   };
 
+  // console.log(gameTurns);
+
   return (
     <main>
       <div id="game-container">
+        {/* {winner && <h2>🎉 Winner: {winner}</h2>} */}
+        {winner && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <h2>🎉 Winner: {winner}</h2>
+              <button onClick={() => window.location.reload()}>
+                다시하기!
+              </button>
+            </div>
+          </div>
+        )}
+
         <ol id="players" className="highlight-player">
           <Player name="player 1" symbol="X" isActive={curPlayer === "X"} />
           <Player name="player 2" symbol="O" isActive={curPlayer === "O"} />
