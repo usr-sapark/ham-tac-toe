@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Story+Script&display=swap"
+      rel="stylesheet" />
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/game-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,9 +12,57 @@
   </head>
   <body>
     <header>
-      <img src="ding-logo.png" alt="logo_image" />
-      <h1>Ham-Tac-Toe</h1>
+      <div class="logo-group">
+        <div class="logo-item">
+          <img src="/removebg_딩딩.png" alt="Ding" />
+          <p>Ding</p>
+        </div>
+        <div class="logo-item">
+          <img src="/removebg_딩딩.png" alt="Tac" />
+          <p>Tac</p>
+        </div>
+        <div class="logo-item">
+          <img src="/removebg_딩딩.png" alt="Toe" />
+          <p>Toe</p>
+        </div>
+      </div>
     </header>
+
+    <style>
+      header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .logo-group {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 10px;
+      }
+
+      .logo-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .logo-item img {
+        width: 200px;
+        height: auto;
+      }
+
+      .logo-item p {
+        color: black;
+        margin-top: 0;
+        font-size: 3rem;
+        font-weight: bold;
+        font-family: "Story Script";
+      }
+    </style>
+
     <div id="root"></div>
     <script type="module" src="/src/index.jsx"></script>
   </body>

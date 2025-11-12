@@ -1,11 +1,10 @@
-const gameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
-const GameBoard = ({ onSelectBox, turns }) => {
-  for (const turn of turns) {
+const GameBoard = ({ onSelectBox, gameTurns }) => {
+  const gameBoard = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ];
+  for (const turn of gameTurns) {
     const rowIdx = turn.square.row;
     const colIdx = turn.square.col;
     // gameBoard 에 업데이트
@@ -19,10 +18,7 @@ const GameBoard = ({ onSelectBox, turns }) => {
           <ol>
             {row.map((playerSymbol, colIdx) => (
               <li key={colIdx}>
-                <button
-                  onClick={() => onSelectBox(rowIdx, colIdx)}
-                  // disabled={playerSymbol !== null}
-                >
+                <button onClick={() => onSelectBox(rowIdx, colIdx)}>
                   {playerSymbol}
                 </button>
               </li>

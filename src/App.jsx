@@ -6,22 +6,33 @@ import Log from "./components/Log";
 // utils
 import { deriveWinner } from "./utils/game_logic";
 import { derivePlayer } from "./utils/game_logic";
+import GameOver from "./components/GameOver";
+
+const PLAYERS = {
+  X: "Player 1",
+  O: "Player 2",
+};
+// -----------------------------------------------------------
 
 function App() {
-  // gameLog & GamdBoard
+  const [players, setPlayers] = useState(PLAYERS);
   const [gameTurns, setGameTurns] = useState([]);
+
   const curPlayer = derivePlayer(gameTurns[0]?.player);
-
-  // 승자 결정 함수
   const winner = deriveWinner(gameTurns);
+  const hasDraw = gameTurns.length === 9 && !winner;
 
-  // 박스 클릭 함수
+  // Restart Func
+  const handleRestart = () => {
+    setGameTurns([]);
+  };
+  // Box Click Func
   const handleSelectBox = (rowIdx, colIdx) => {
     for (let i = 0; i < gameTurns.length; i++) {
       const turn = gameTurns[i];
       if (turn.square.row == rowIdx && turn.square.col == colIdx) {
         alert("중복 입력 금지");
-        // handleSelectBox함수를 종료시켜 setGameTurns가 실행되지 못하는 원리
+        // handleSelectBox함수 종료 -> setGameTurns실행 안됨
         return;
       }
     }
@@ -37,28 +48,54 @@ function App() {
     });
   };
 
-  // console.log(gameTurns);
+  // Username Sync Func
+  const handleNameChange = (symbol, newName) => {
+    setPlayers((prev) => {
+      if (symbol === "O") {
+        return {
+          O: newName,
+          X: prev.X,
+        };
+      } else {
+        return {
+          X: newName,
+          O: prev.O,
+        };
+      }
+    });
+  };
+
+  /* 축약 형태
+setPlayers(prev => {
+  return {
+  ...prev,
+  [symbol]: newName
+  };
+})
+  */
 
   return (
     <main>
       <div id="game-container">
-        {/* {winner && <h2>🎉 Winner: {winner}</h2>} */}
-        {winner && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <h2>🎉 Winner: {winner}</h2>
-              <button onClick={() => window.location.reload()}>
-                다시하기!
-              </button>
-            </div>
-          </div>
+        {(winner || hasDraw) && (
+          <GameOver winner={players[winner]} onRestart={handleRestart} />
         )}
 
         <ol id="players" className="highlight-player">
-          <Player name="player 1" symbol="X" isActive={curPlayer === "X"} />
-          <Player name="player 2" symbol="O" isActive={curPlayer === "O"} />
+          <Player
+            name={PLAYERS.X}
+            symbol="X"
+            isActive={curPlayer === "X"}
+            onChangeName={handleNameChange}
+          />
+          <Player
+            name={PLAYERS.O}
+            symbol="O"
+            isActive={curPlayer === "O"}
+            onChangeName={handleNameChange}
+          />
         </ol>
-        <GameBoard onSelectBox={handleSelectBox} turns={gameTurns} />
+        <GameBoard onSelectBox={handleSelectBox} gameTurns={gameTurns} />
       </div>
       <Log turns={gameTurns} />
     </main>

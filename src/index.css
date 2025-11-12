@@ -1,15 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Roboto+Slab:wght@400;700&display=swap");
-
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: "Roboto Slab", sans-serif;
+  font-family: "Noto Sans";
   line-height: 1;
-
-  color: #ebe7ef;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,11 +14,10 @@ html {
 
 body {
   background: radial-gradient(
-      circle at top,
-      rgba(241, 210, 70, 0.98),
-      rgba(250, 176, 103, 0.87)
-    ),
-    url("bg-pattern-dark.png");
+    circle at top,
+    rgba(241, 210, 70, 0.98),
+    rgba(250, 176, 103, 0.87)
+  );
   background-repeat: repeat;
   background-size: 100% 100%, 30% 30%, 100% 100%;
   min-height: 110rem;
@@ -33,23 +27,9 @@ header {
   text-align: center;
 }
 
-header img {
-  width: 10rem;
-  object-fit: contain;
-  margin: 3rem auto 1rem auto;
-  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4));
-}
-
-h1 {
-  font-family: "Caprasimo", cursive;
-  font-size: 3rem;
-  margin: 0 auto 3rem auto;
-  color: #3f3b00;
-}
-
 #game-container {
-  max-width: 45rem;
-  margin: 3rem auto;
+  max-width: 50rem;
+  margin: 2rem auto;
   padding: 2rem;
   border-radius: 6px;
   background: linear-gradient(#383624, #282617);
@@ -60,7 +40,7 @@ h1 {
 #players {
   list-style: none;
   padding: 0;
-  margin: 1rem 0;
+  margin: 1rem 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,14 +49,16 @@ h1 {
 
 #players li {
   display: flex;
+  width: 40%;
   align-items: center;
-  width: 50%;
-  border: 2px solid transparent;
+  padding-bottom: 0.5rem;
+  height: 3rem;
 }
 
 #players.highlight-player li.active {
-  border-color: #f6e35a;
-  animation: pulse 2s infinite ease-in-out;
+  border: none;
+  border-bottom: 3px solid #f6e35a;
+  animation: none;
 }
 
 #players.highlight-player li.active .player-name,
@@ -85,15 +67,17 @@ h1 {
 }
 
 #players button {
-  width: 3rem;
-  border: none;
+  width: 4rem;
+  border: 1px solid transparent; /* border 공간 미리 확보 */
+  border-radius: 16px;
   background: none;
   color: #c3ba78;
-  font-size: 0.9rem;
+  font-size: 1rem;
   cursor: pointer;
-  transition: color 0.2s;
-  padding: 0.5rem 0.25rem 0.25rem 0.25rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
   text-align: center;
+  margin-left: 0.8rem; /* 버튼 좌측 margin 추가 */
 }
 
 #players button:hover {
@@ -101,35 +85,32 @@ h1 {
 }
 
 .player {
-  border: 2px solid transparent;
   padding: 0.5rem;
-  border-radius: 4px;
   font-weight: bold;
 }
 
-.player-name {
+.player-name,
+.player input {
   display: inline-block;
   width: 10rem;
   font-size: 1rem;
-  color: #e1dec7;
   text-transform: uppercase;
-  margin: 0;
+  text-align: center;
   padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.player-name {
+  color: #e1dec7;
+  margin: 0;
   border-radius: 4px;
   text-overflow: ellipsis;
-  text-align: center;
 }
 
 .player input {
-  font: inherit;
-  font-size: 1rem;
-  width: 10rem;
   border: none;
-  padding: 0.5rem;
-  animation: pulse-text 2s infinite;
   background-color: #46432f;
-  text-align: center;
-  text-transform: uppercase;
+  color: #e1dec7;
 }
 
 .player-symbol {
@@ -153,8 +134,7 @@ ol {
   background: none;
   color: #f8c031;
   border: none;
-  font-family: "Caprasimo", cursive;
-  font-size: 4rem;
+  font-size: 2rem;
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
   animation: pulse-text-size 2s infinite ease-out;
 }
@@ -163,8 +143,8 @@ ol {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
-  margin: 3rem 0;
+  gap: 3rem;
+  margin: 4rem 2rem;
   padding: 0;
   flex-direction: column;
 }
@@ -186,8 +166,7 @@ ol {
   color: #3f3b00;
   font-size: 5rem;
   cursor: pointer;
-  font-family: "Caprasimo", cursive;
-  padding: 1rem;
+  padding: 0rem;
 }
 
 #game-over {
@@ -205,7 +184,6 @@ ol {
 }
 
 #game-over h2 {
-  font-family: "Caprasimo", cursive;
   font-size: 4rem;
   text-align: center;
   color: #fcd256;
@@ -265,7 +243,6 @@ ol {
 }
 
 #game-hints h2 {
-  font-family: "Caprasimo", cursive;
   font-size: 2rem;
   margin: 0;
 }
